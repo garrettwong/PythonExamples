@@ -5,12 +5,11 @@ class WriteFile:
     def write(self, baseDirectory):
         rg = RandomGenerator()
         randomStr = rg.getRandomString(10)
-        
+
         ms = TimeManager().getTimeInMilliseconds()
         f = open(baseDirectory + 'workfile_' + str(randomStr), 'w')
 
         f.write('This is a test\n')
-
 
 
 # main
