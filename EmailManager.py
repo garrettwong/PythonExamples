@@ -57,6 +57,7 @@ class EmailManager:
             server.sendmail(fromMy, to, msg)
             server.quit()
             print 'ok the email has sent '
+            
         except:
             print 'can\'t send the Email', sys.exc_info()[0]
             raise
