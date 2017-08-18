@@ -5,13 +5,13 @@ import smtplib
 from email.mime.text import MIMEText
 import sys
 
+import Configs
+
 textfile = './file-watcher-folder/workfile'
-smtpServer = 'localhost'
-#smtpServer = 'mailrelay'
 
 
 class EmailManager:
-    def send(self):
+    def send(self, to):
         # Open a plain text file for reading.  For this example, assume that
         # the text file contains only ASCII characters.
         fp = open(textfile, 'rb')
@@ -19,27 +19,24 @@ class EmailManager:
         msg = MIMEText(fp.read())
         fp.close()
 
-        me = ''
-        you = ''
+        me = Configs.config['me']
+        you = 'gwong005@gmail.com'
 
         # me == the sender's email address
         # you == the recipient's email address
         msg['Subject'] = 'The contents of %s' % textfile
-        msg['From'] = me
-        msg['To'] = you
+        msg['From'] = Configs.config['me']
+        msg['To'] = to
 
         # Send the message via our own SMTP server, but don't include the
         # envelope header.
-        s = smtplib.SMTP(smtpServer)
-        s.sendmail(me, [you], msg.as_string())
+        s = smtplib.SMTP(Configs.config['smtpServer'])
+        s.sendmail(Configs.config['me'], [you], msg.as_string())
         s.quit()
 
-    def sendYahooMail(self):
+    def sendYahooMail(self, to):
         # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
-        fromMy = ''
-        to = ''
-        username = ''
-        password = ''
+        fromMy = Configs.yahooConfig['me']
 
         subj = 'TheSubject'
         date = '2/1/2010'
@@ -47,11 +44,11 @@ class EmailManager:
         msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % (
             fromMy, to, subj, date, message_text)
 
-        username = str(username)
-        password = str(password)
+        username = str(Configs.yahooConfig['me'])
+        password = str(Configs.yahooConfig['pw'])
 
         try:
-            server = smtplib.SMTP("smtp.mail.yahoo.com", 587)
+            server = smtplib.SMTP(Configs.yahooConfig['smtpServer'], 587)
             print(server.ehlo())
             server.starttls()
 
@@ -69,5 +66,5 @@ class EmailManager:
 if __name__ == "__main__":
     em = EmailManager()
 
-    # em.send()
-    em.sendYahooMail()
+    em.send('gwong005@gmail.com')
+    em.sendYahooMail('gwong005@gmail.com')
