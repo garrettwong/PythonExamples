@@ -16,8 +16,14 @@ class MongoDbManager:
         db = self.getDatabase(database)
         return db[collection]
 
+class PostRepository(MongoDbManager):
+    def __init__(self):
+        MongoDbManager.__init__(self)
+        self.db = 'test'
+        self.collection = 'posts'
+
     def addPost(self, post):
-        collection = self.getCollection('test', 'posts')
+        collection = self.getCollection(self.db, self.collection)
 
         post_id = collection.insert_one(post).inserted_id
 
@@ -26,13 +32,13 @@ class MongoDbManager:
         return post
 
     def getAllPosts(self):
-        collection = self.getCollection('test', 'posts')
+        collection = self.getCollection(self.db, self.collection)
 
         return collection.find()
 
 
 if __name__ == "__main__":
-    mdm = MongoDbManager()
+    mdm = PostRepository()
 
     db = mdm.getDatabase('db')
 
