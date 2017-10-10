@@ -11,7 +11,6 @@ class WriteFile:
 
         f.write('This is a test\n')
 
-
 # main
 if __name__ == "__main__":
     wf = WriteFile()
