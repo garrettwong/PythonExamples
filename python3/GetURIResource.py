@@ -20,5 +20,6 @@ c = GetURIResource()
 
 res1 = c.getJquery()
 res2 = c.getVueJs()
+
 print (res1)
 print (res2)
