@@ -30,5 +30,3 @@ class HtmlWriter:
         wfile.write(bytes("</body></html>", "utf-8"))
         
 h = HtmlWriter()
-
-

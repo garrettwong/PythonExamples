@@ -31,9 +31,21 @@ class MyServer(BaseHTTPRequestHandler):
         for key, value in post_data.items():
             print("%s=%s" % (key, value))
 
+
+        self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
+
+
+        data = simplejson.loads(self.data_string)
+        with open("test123456.json", "w") as outfile:
+            simplejson.dump(data, outfile)
+        print "{}".format(data)
+        f = open("for_presen.py")
+        self.wfile.write(f.read())
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
