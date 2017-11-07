@@ -8,7 +8,7 @@ hostName = "localhost"
 hostPort = 9000
 
 class MyServer(BaseHTTPRequestHandler):
-    logger = Logger('HttpServer.log')
+    logger = Logger('_HttpServer.log')
     htmlWriter = HtmlWriter()
 
     def do_GET(self):
@@ -43,7 +43,7 @@ class MyServer(BaseHTTPRequestHandler):
         data = simplejson.loads(self.data_string)
         with open("test123456.json", "w") as outfile:
             simplejson.dump(data, outfile)
-        print "{}".format(data)
+        print ({}.format(data))
         f = open("for_presen.py")
         self.wfile.write(f.read())
 
