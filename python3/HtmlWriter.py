@@ -29,4 +29,4 @@ class HtmlWriter:
         wfile.write(bytes("<script>" +self.js + "</script>", "utf-8"))
         wfile.write(bytes("</body></html>", "utf-8"))
         
-h = HtmlWriter()
+# h = HtmlWriter()

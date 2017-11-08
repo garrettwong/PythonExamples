@@ -9,7 +9,7 @@ hostPort = 9000
 
 class MyServer(BaseHTTPRequestHandler):
     logger = Logger('_HttpServer.log')
-    htmlWriter = HtmlWriter()
+    # htmlWriter = HtmlWriter()
 
     def do_GET(self):
         self.send_response(200)
@@ -48,13 +48,13 @@ class MyServer(BaseHTTPRequestHandler):
         self.wfile.write(f.read())
 
 
-myServer = HTTPServer((hostName, hostPort), MyServer)
-print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
+# myServer = HTTPServer((hostName, hostPort), MyServer)
+# print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
 
-try:
-    myServer.serve_forever()
-except KeyboardInterrupt:
-    pass
+# try:
+#     myServer.serve_forever()
+# except KeyboardInterrupt:
+#     pass
 
-myServer.server_close()
-print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
+# myServer.server_close()
+# print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
