@@ -12,16 +12,22 @@ class MyServer(BaseHTTPRequestHandler):
     # htmlWriter = HtmlWriter()
 
     def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-
-        self.htmlWriter.writeHtml(self.wfile, self.path)
+        #self.htmlWriter.writeHtml(self.wfile, self.path)
         
-        self.logger.write(self.path)
+        self.logger.log(self.path)
 
         o = urlparse(self.path)
-        print(o)
+        self.logger.log(o)
+
+        if 'ping' in o:
+            self.send_response(200)
+            self.end_headers()
+        else:
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+
+        
 
     def do_POST(self):
          # Extract and print the contents of the POST

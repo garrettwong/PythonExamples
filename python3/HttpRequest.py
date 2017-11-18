@@ -2,6 +2,7 @@ import urllib.request
 import urllib.parse
 import json
 from urllib import request, parse
+import requests
 
 class HttpRequest:
     def getAllDogs(self):
@@ -16,9 +17,13 @@ class HttpRequest:
         return json.loads(data)
 
     def sendSystemDetails(self, systemDetails):
+        print(systemDetails)
         data = parse.urlencode(systemDetails).encode()
-        req =  request.Request('http://localhost/GBase/api/RegisterSystem', data=data) # this will make the method "POST"
-        resp = request.urlopen(req)
+        print(data)
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        res =  requests.post('http://localhost/GBase/api/RegisterSystem', data=json.dumps(systemDetails), headers=headers) # this will make the method "POST"
+        print(res.status_code)
+        print(res.json())
 
 # main
 # if __name__ == "__main__":
