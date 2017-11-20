@@ -18,6 +18,6 @@ class Logger:
         self.write(logEntry)
 
 # main
-if __name__ == "__main__":
-    logger = Logger('pathToLog.txt')
-    logger.write('test message')
+# if __name__ == "__main__":
+#     logger = Logger('pathToLog.txt')
+#     logger.write('test message')

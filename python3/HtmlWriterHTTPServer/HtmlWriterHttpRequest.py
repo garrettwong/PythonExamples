@@ -6,7 +6,7 @@ import requests
 from urllib import request, parse
 from Global import CONFIG
 
-class HttpRequest:
+class HtmlWriterHttpRequest:
     def getAllDogs(self):
         url = 'https://dog.ceo/api/breeds/list/all'
         f = urllib.request.urlopen(url)

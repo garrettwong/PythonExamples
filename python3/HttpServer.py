@@ -2,17 +2,15 @@
 """
 HttpServer.py
 """
+from Global import CONFIG
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from Logger import Logger
 from HtmlWriter import HtmlWriter
 from HttpRequest import HttpRequest
 
-hostName = "localhost"
-hostPort = 9000
-
 class MyServer(BaseHTTPRequestHandler):
-    logger = Logger('_HttpServer.log')
+    logger = Logger(CONFIG['LogFileName'])
     # htmlWriter = HtmlWriter()
 
     def do_GET(self):
@@ -29,6 +27,7 @@ class MyServer(BaseHTTPRequestHandler):
 
             self.send_response(200)
             self.end_headers()
+
         elif 'sendcommand' in lowercase_url:
             self.logger.log('send command')
             #try executing command
@@ -38,6 +37,7 @@ class MyServer(BaseHTTPRequestHandler):
             
             self.send_response(200)
             self.end_headers()
+
         else:
             self.logger.log('else')
             
@@ -77,9 +77,13 @@ class MyServer(BaseHTTPRequestHandler):
         self.http_request = HttpRequest()
 
         # send with system id
-        self.http_request.request_next_command('Garrett3:9001')
+        self.http_request.request_next_command(CONFIG['CurrentSystemHostnamePort'])
 
 
+## usage
+
+# hostName = "localhost"
+# hostPort = 9000
 # myServer = HTTPServer((hostName, hostPort), MyServer)
 # print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
 
