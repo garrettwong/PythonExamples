@@ -1,8 +1,12 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import time
+#!/usr/bin/env python
+"""
+HttpServer.py
+"""
+from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from Logger import Logger
 from HtmlWriter import HtmlWriter
+from HttpRequest import HttpRequest
 
 hostName = "localhost"
 hostPort = 9000
@@ -18,11 +22,25 @@ class MyServer(BaseHTTPRequestHandler):
 
         o = urlparse(self.path)
         self.logger.log(o)
+        lowercase_url = self.path.lower()
 
-        if 'ping' in o:
+        if 'ping' in lowercase_url:
+            self.logger.log('ping')
+
+            self.send_response(200)
+            self.end_headers()
+        elif 'sendcommand' in lowercase_url:
+            self.logger.log('send command')
+            #try executing command
+
+            #once command finished, request next command
+            self.request_next_command()
+            
             self.send_response(200)
             self.end_headers()
         else:
+            self.logger.log('else')
+            
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
@@ -52,6 +70,14 @@ class MyServer(BaseHTTPRequestHandler):
         print ({}.format(data))
         f = open("for_presen.py")
         self.wfile.write(f.read())
+
+    def request_next_command(self):
+        print('requesting next command')
+        
+        self.http_request = HttpRequest()
+
+        # send with system id
+        self.http_request.request_next_command('Garrett3:9001')
 
 
 # myServer = HTTPServer((hostName, hostPort), MyServer)

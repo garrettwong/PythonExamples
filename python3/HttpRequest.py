@@ -25,6 +25,12 @@ class HttpRequest:
         print(res.status_code)
         print(res.json())
 
+    def request_next_command(self, systemIdentifier):
+        url = 'http://localhost/GBase/api/Automation/GetNextCommand?identifier=' + systemIdentifier
+        f = urllib.request.urlopen(url)
+        data = f.read().decode('utf-8')
+        return json.loads(data)
+
 # main
 # if __name__ == "__main__":
 #     hr = HttpRequest()
