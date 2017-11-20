@@ -3,6 +3,7 @@ class HtmlWriter:
         with open('css/style.css') as f:
             self.css = f.read()
             print(self.css)
+
         with open('js/script.js') as f:
             self.js = f.read()
             print(self.js)
@@ -26,7 +27,7 @@ class HtmlWriter:
         """, "utf-8"))
         wfile.write(bytes("<p>You accessed path: %s</p>" % path, "utf-8"))
         wfile.write(bytes("</div>", "utf-8"))
-        wfile.write(bytes("<script>" +self.js + "</script>", "utf-8"))
+        wfile.write(bytes("<script>" + self.js + "</script>", "utf-8"))
         wfile.write(bytes("</body></html>", "utf-8"))
         
 # h = HtmlWriter()

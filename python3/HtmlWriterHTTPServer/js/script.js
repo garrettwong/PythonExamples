@@ -10,7 +10,7 @@ btn.addEventListener('click', function() {
     //https://dog.ceo/dog-api/
     var dogApiUrl = 'https://dog.ceo/api/breeds/list/all';
     httpGetAsync(dogApiUrl, function(data) {
-        alert('terrence!');
+        alert('Input Value ' + input.value);
         console.log(data);
     })
 });

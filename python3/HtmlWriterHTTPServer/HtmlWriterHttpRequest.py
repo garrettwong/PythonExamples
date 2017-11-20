@@ -4,7 +4,6 @@ import json
 import requests
 
 from urllib import request, parse
-from Global import CONFIG
 
 class HtmlWriterHttpRequest:
     def getAllDogs(self):
