@@ -30,7 +30,11 @@ class HttpRequest:
     def request_next_command(self, systemIdentifier):
         url = 'http://' + CONFIG['SystemAutomationHostname'] + '/GBase/api/Automation/GetNextCommand?identifier=' + systemIdentifier
         f = urllib.request.urlopen(url)
+
+        print(f)
         data = f.read().decode('utf-8')
+        print(data)
+        
         return json.loads(data)
 
 # main
