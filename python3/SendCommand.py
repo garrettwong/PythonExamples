@@ -44,16 +44,18 @@ class SendCommand:
         return data
 
     def get_post_command_with_args(self, command):
-        command = ''
+        commandText = ''
         args = ''
-
-        if command['command'] is not None:
-            command = command['command']
         
-        if command['args'] is not None:
-            args = command['args']
+        print(type(command))
 
-        formatted_command = command + ' ' + args
+        if command['CommandText'] is not None:
+            commandText = command['CommandText']
+        
+        if command['Args'] is not None:
+            args = command['Args']
+
+        formatted_command = commandText + ' ' + args
         return formatted_command
 
     def execute_command(self, command_with_args):
@@ -96,10 +98,10 @@ class SendCommand:
     def process_post(self, server):
         command = self.parse_post_command(server)
         print(command)
+        print(type(command))
 
         command_with_args = self.get_post_command_with_args(command)
 
         output = self.execute_command(command_with_args)
         print(output)
-
-
+        

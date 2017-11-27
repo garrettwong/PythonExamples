@@ -10,7 +10,7 @@ class SystemDetails:
     def getIpAddress(self):
         return socket.gethostbyname(socket.gethostname())
 
-    def getHostname(self):
+    def get_hostname(self):
         return socket.gethostname()
 
 # main
@@ -20,4 +20,4 @@ if __name__ == "__main__":
 
     print(sd.getIpAddress())
 
-    print(sd.getHostname())
+    print(sd.get_hostname())

@@ -7,12 +7,12 @@ from urllib import request, parse
 from Global import CONFIG
 
 class HttpRequest:
-    def getAllDogs(self):
+    def get_all_dogs(self):
         url = 'https://dog.ceo/api/breeds/list/all'
         f = urllib.request.urlopen(url)
         print(f.read().decode('utf-8'))
 
-    def sendSystemDetails(self, systemDetails):
+    def send_system_details(self, systemDetails):
         print(systemDetails)
         data = parse.urlencode(systemDetails).encode()
         print(data)
@@ -21,7 +21,7 @@ class HttpRequest:
         print(res.status_code)
         print(res.json())
 
-    def getNextCommand(self):
+    def get_next_command(self):
         url = 'http://' + CONFIG['SystemAutomationHostname'] + '/MAzure/api/AutomationEndpoint'
         f = urllib.request.urlopen(url)
         data = f.read().decode('utf-8')
@@ -34,8 +34,9 @@ class HttpRequest:
         print(f)
         data = f.read().decode('utf-8')
         print(data)
-        
-        return json.loads(data)
+        print(type(data))
+        return
+        #return json.loads(data)
 
 # main
 # if __name__ == "__main__":

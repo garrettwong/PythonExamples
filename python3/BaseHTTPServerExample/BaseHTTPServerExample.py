@@ -42,9 +42,6 @@ class HTTPServerHandler(BaseHTTPRequestHandler):
 
         print(dict['hello'])
         
-        for key, value in post_data.items():
-            print("%s=%s" % (key, value))
-
 
         self._set_headers()
 
