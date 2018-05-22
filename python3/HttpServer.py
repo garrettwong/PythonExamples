@@ -13,6 +13,10 @@ from HttpRequest import HttpRequest
 class MyServer(BaseHTTPRequestHandler):
     logger = Logger(CONFIG['LogFileName'])
 
+    def _set_headers(self):
+        self.send_response(200)
+        self.end_headers()
+
     def do_GET(self):
         self.logger.log(self.path)
 
@@ -23,9 +27,6 @@ class MyServer(BaseHTTPRequestHandler):
         if 'ping' in lowercase_url:
             self.logger.log('ping')
 
-            self.send_response(200)
-            self.end_headers()
-
         elif 'sendcommand' in lowercase_url:
             self.logger.log('send command: GET')
             
@@ -35,26 +36,20 @@ class MyServer(BaseHTTPRequestHandler):
 
             #once command finished, request next command
             #self.request_next_command()
-            
-            self.send_response(200)
-            self.end_headers()
 
         else:
             self.logger.log('else')
-            
-            self.send_response(200)
-            self.send_header("Content-type", "text/html")
-            self.end_headers()
 
+        self._set_headers()
         
 
     def do_POST(self):
          # Extract and print the contents of the POST
-        length = int(self.headers['Content-Length'])
-        post_data = parse_qs(self.rfile.read(length).decode('utf-8'))
+        content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
+        post_data = self.rfile.read(content_length) # <--- Gets the data itself
+        
         print(post_data)
-        for key, value in post_data.items():
-            print("%s=%s" % (key, value))
+
 
         self.logger.log(self.path)
 
