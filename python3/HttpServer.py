@@ -3,6 +3,7 @@
 HttpServer.py
 """
 import os
+import time
 from Global import CONFIG
 from SendCommand import SendCommand
 from http.server import BaseHTTPRequestHandler
@@ -50,6 +51,8 @@ class MyServer(BaseHTTPRequestHandler):
         
         print(post_data)
 
+        #for key, value in post_data.items():
+        #    print("%s=%s" % (key, value))
 
         self.logger.log(self.path)
 
@@ -59,24 +62,25 @@ class MyServer(BaseHTTPRequestHandler):
 
         if 'sendcommand' in lowercase_url:
             self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
             self.end_headers()
+            self.flush_headers()
 
-
-            self.logger.log('send command: POST')
+            self.logger.log('\n\n**Phase: send command: POST**')
             
+            time.sleep(3)
+
             #try executing command
-            SendCommandManager = SendCommand()
-            SendCommandManager.process_post(self)
+            send_command_manager = SendCommand()
+            send_command_manager.process_post(self)
 
             #once command finished, request next command
-            #self.request_next_command()
+            self.request_next_command()
             
-
         else:
             self.logger.log('else')
             
             self.send_response(200)
-            self.send_header("Content-type", "text/html")
             self.end_headers()
 
 

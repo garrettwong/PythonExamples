@@ -63,7 +63,6 @@ class HTTPServerHandler(BaseHTTPRequestHandler):
         bg_thread = threading.Thread(target=self.other_func, args=[post_data])
         bg_thread.start()
 
-
         self._set_headers()
 
 

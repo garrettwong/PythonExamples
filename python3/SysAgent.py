@@ -15,6 +15,7 @@ SysAgent.py
 """
 
 import time
+import json
 from http.server import HTTPServer
 from SystemDetails import SystemDetails
 from HttpRequest import HttpRequest
@@ -54,7 +55,7 @@ class SysAgent:
         keys = {}
         keys['os'] = self.system_details.getOs()
         keys['ipAddress'] = self.system_details.getIpAddress()
-        keys['hostname'] = self.system_details.getHostname()
+        keys['hostname'] = self.system_details.get_hostname()
 
         system_details['group'] = 'FIT'
         system_details['identifier'] = keys['hostname'] + str(':9001')
@@ -72,15 +73,15 @@ class SysAgent:
         """sends the system details object to the backend server"""
 
         self.http_request = HttpRequest()
-        self.http_request.sendSystemDetails(system_details)
+        self.http_request.send_system_details(system_details)
 
     def start_server(self):
         """starts the web server"""
 
         hostname = "localhost"
-        hostname = self.system_details.getHostname()
+        hostname = self.system_details.get_hostname()
         port = 9001
-        print('starting ser')
+        print('starting server...')
 
         self.server = HTTPServer((hostname, port), MyServer)
         print(time.asctime(), "Server Starts - %s:%s" % (hostname, port))
